@@ -1,103 +1,103 @@
-import React, { Component } from 'react';
-import {Container, Content, Card, CardItem, Text, Body, Button, Input, Item, Icon} from 'native-base';
-import {StyleSheet, ScrollView} from 'react-native';
+import React, {Component} from 'react';
+import {Container, Content, Card, CardItem, Text, Body, Button, Input, Item, Icon,View} from 'native-base';
+import {StyleSheet,ActivityIndicator} from 'react-native';
 
 class Login extends Component{
-    render() {
-      const navegar = this.props.navigation;
-  return (
-      <Container>
-        <ScrollView>
-        <Content padder 
-                  contentContainerStyle = {misEstilos.Content}>
-          <Card style = {misEstilos.textCenter} transparent>
-            <CardItem>
-              <Body>
-                <Text style = {misEstilos.textCenter}>
-                  Crea tu sesión.
-                </Text> 
-              </Body>
-            </CardItem>
-          </Card>
-          <Card style = {misEstilos.textCenter} transparent>
-            <CardItem>
-              <Body>
-                <Text style = {misEstilos.textCenter}>
-                Registrate con tu red social.
-                </Text> 
-              </Body>
-            </CardItem>
-          </Card>
-          <CardItem footer>
-                <Button secundary style={misEstilos.Boton3}><Icon type='Entypo' name='facebook'/></Button>
-                <Button info style={misEstilos.Boton2}><Icon type='AntDesign' name='twitter'/></Button>
-             </CardItem>
+  constructor(props){
+    super(props);
+    this.state={usuario:'',contrasena:''};
+  }
+  state ={
+    showIndicador:false,
+  }
+  onButtonPress=()=>{
+    this.setState({
+      showIndicador:true
+    }),
+    this.props.navigation.navigate('Inicio',{contrasena:this.state.contrasena,usuario:this.state.usuario});
+  }
+    render(){
+        const navegar = this.props.navigation;
+        if(this.state.showIndicador){
+            return (
+                <View style={misEstilos.content}>
+                    <ActivityIndicator size="large" color="FFFFFF"></ActivityIndicator>
+                </View>
+            );
+            }else{
+              return(
+    <Container>
+        <Content padder contentContainerStyle = {misEstilos.content}>
           <Card>
             <CardItem header bordered>
-              <Text style = {misEstilos.textCenter}>Registrate</Text>
+              <Text style = {misEstilos.textCenter}>Inicio de Sesion</Text>
             </CardItem>
             <CardItem bordered>
               <Body style = {misEstilos.body}>
               <Item inlineLabel>
-                <Icon type = 'FontAwesome' name = 'user'></Icon>
-              <Input placeholder = 'Nombre'/>
-            </Item>
-            <Item inlineLabel>
-                <Icon type = 'Zocial' name = 'gmail'></Icon>
-              <Input placeholder = 'Correo'/>
-            </Item>
-            <Item inlineLabel>
-                <Icon type = 'Entypo' name = 'tablet'></Icon>
-              <Input placeholder = 'Numero celular'/>
-            </Item>
-            <Item inlineLabel last>
-                <Icon type = 'FontAwesome' name = 'lock'></Icon>
-              <Input placeholder = 'Contraseña'/>  
-            </Item>
+                        <Icon type = 'FontAwesome' name = 'user'></Icon>
+                        <Input type="text"
+                            value={this.state.usuario}
+                            onChangeText={(usuario)=>this.setState({usuario})}
+                        />
+                    </Item>
+                <Item inlineLabel last>
+                        <Icon type = 'FontAwesome' name = 'lock'></Icon>
+                        <Input type="password"
+                            value={this.state.contrasena}
+                            onChangeText={(contrasena)=>this.setState({contrasena})}
+                        />
+                    </Item>
               </Body>
             </CardItem>
             <CardItem footer bordered>
-              <Button primary onPress= {() => {navegar.navigate('registro',{
-                titulo: 'Registro, usuario',
-                nombre: 'Bedari'
-                })}
-              }>
-                <Text> Registrate </Text>
+            <Button success = {misEstilos.boton} onPress= {() => {navegar.navigate('Registro',{
+                contrasena: this.contrasena,
+                usuario:this.state.usuario})}
+              }> <Text> Registrate </Text>
               </Button>
-              <Button primary style = {misEstilos.boton}><Text> Entrar </Text></Button>
+              <Button success= {misEstilos.boton1} onPress={this.onButtonPress}>
+                <Text> Entrar</Text>
+              </Button>
             </CardItem>
           </Card>
         </Content>
-        </ScrollView>
       </Container>
-  );
-    }
+    );
+  }
+}
 };
 
 const misEstilos = StyleSheet.create({
-  Content: {
+  content: {
     flex: 1,
     justifyContent: 'center',
   },
+
   textCenter:{
     textAlign: 'center',
     width: '100%',
   },
-  boton:{ 
-    
-    marginLeft: '70%',
-  },
-  body:{
-    paddingVertical: 35,
-  },
-  Boton2:{
-    marginRight:'30%',
-  },
-  Boton3:{
-    marginLeft:'30%',
+
+  boton: {
+    flex: 1,
+    justifyContent: 'center',
+    //marginLeft: '35%',
+    //justifyContent: 'center',
   },
 
+  boton1: {
+    flex: 1,
+    justifyContent: 'center',
+    //marginLeft: '70%',
+    //justifyContent: 'center',
+  },
+
+
+  body: {
+    paddingVertical: 35,
+  }
+  
 });
 
 export default Login;
-
