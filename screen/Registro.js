@@ -1,55 +1,37 @@
-import React, {Component} from 'react';
-import {Container, Content, Card, CardItem, Text, Body, Button, Input, Item, Icon} from 'native-base';
+import React,{Component} from 'react';
+import {Container, Content, Card, CardItem, Text, Body, Button, Input, Item, Icon, Right} from 'native-base';
 import {StyleSheet} from 'react-native';
 
 class Registro extends Component{
+
   constructor(props){
     super(props);
     this.state = {usuario:'',correo:'',contrasena:''};
   }
 
   mensaje = ()=>{alert('Datos guardados')};
-    render() {
+  render(){
       const navegar = this.props.navigation;
-  return (
+      return(
       <Container>
-        <Content padder 
-                  contentContainerStyle = {misEstilos.Content}>
-          <Card style = {misEstilos.textCenter} transparent>
-            <CardItem>
-              <Body>
-                <Text style = {misEstilos.textCenter}>
-                  Crea tu sesión.
-                </Text> 
-              </Body>
-            </CardItem>
-          </Card>
-          <Card style = {misEstilos.textCenter} transparent>
-            <CardItem>
-              <Body>
-                <Text style = {misEstilos.textCenter}>
-                Registrate con tu red social.
-                </Text> 
-              </Body>
-            </CardItem>
-          </Card>
-          <CardItem footer>
-                <Button secundary style={misEstilos.Boton3}><Icon type='Entypo' name='facebook'/></Button>
-                <Button info style={misEstilos.Boton2}><Icon type='AntDesign' name='twitter'/></Button>
-          </CardItem>
-          <Card>
+
+          <Content padder contentContainerStyle = {misEstilos.content}>
+            <Card>
+
             <CardItem header bordered>
-              <Text style = {misEstilos.textCenter}>Registrate</Text>
+                    <Text style = {misEstilos.textCenter}>Registrar</Text>
             </CardItem>
-            <CardItem bordered>
-              <Body style = {misEstilos.body}>
-              <Item inlineLabel>
+              <CardItem bordered>
+                <Body style = {misEstilos.body}>
+
+                  <Item inlineLabel>
                         <Icon type = 'FontAwesome' name = 'user'></Icon>
                         <Input type="text"
                             value={this.state.usuario}
                             onChangeText={(usuario)=>this.setState({usuario})}
                         />
-              </Item>
+                  </Item>
+
                   <Item inlineLabel last>
                     <Icon type = 'Entypo' name = 'email'></Icon>
                     <Input type="text"
@@ -57,70 +39,100 @@ class Registro extends Component{
                       onChangeText={(correo)=>this.setState({correo})}
                     />
                   </Item>
-            <Item inlineLabel last>
+
+                  <Item inlineLabel last>
                       <Icon type = 'FontAwesome' name = 'lock'></Icon>
                       <Input type="password"
-                          value={this.state.contrasena}
+                      value={this.state.contrasena}
                           onChangeText={(contrasena)=>this.setState({contrasena})}
                       />
-            </Item>
-              </Body>
-            </CardItem>
-            <CardItem footer bordered>
-              <Button primary onPress={misEstilos.boton}>
-                <Text> Registrate </Text>
-              </Button>
-            </CardItem>
-              <CardItem footer bordered>
-              <Button rounded dark style = {misEstilos.boton} 
+                  </Item>
+                  
+                </Body>
+              </CardItem>
+
+              <CardItem footer bordered>                
+                <Button dark style = {misEstilos.boton} 
+                onPress={this.mensaje} ><Text> Registrar</Text>
+                </Button>
+
+                <Button danger = {misEstilos.boton} 
                     onPress ={() =>
                         navegar.navigate('Login',{
                             contrasena: this.state.contrasena,
                             usuario: this.state.usuario})}>
                     <Text>Regresar</Text>
-              </Button>
+                    </Button>
               </CardItem>
-              <CardItem footer bordered>
-              <Button primary style = {misEstilos.boton} 
-                  onPress ={() =>
-                      navegar.navigate('Bienvenida',{
-                          contrasena: this.state.contrasena,
-                          usuario: this.state.usuario
-                      })}>
-                  <Text> Entrar </Text>
-              </Button>
+
+              <CardItem warning> 
+                <Button ligh = {misEstilos.boton} 
+                    onPress ={() =>
+                        navegar.navigate('Inicio',{
+                            contrasena: this.state.contrasena,
+                            usuario: this.state.usuario
+                        })}>
+                    <Text>Entrar</Text>
+                </Button>
+              </CardItem>       
+
+            </Card>
+
+            <Card>
+              <CardItem header bordered>
+                <Text style = {misEstilos.textCenter}>registrate por medio de:</Text>
               </CardItem>
-          </Card>
+
+              <CardItem>
+              <Button secundary style={misEstilos.Boton3}><Icon type = 'Entypo' name = 'facebook'></Icon>
+                <Text>Facebook</Text>
+                <Right>
+                  <Icon name="arrow-forward" />
+                </Right></Button>
+              </CardItem>
+
+              <CardItem>
+              <Button info style={misEstilos.Boton3}><Icon type = 'AntDesign' name = 'twitter'></Icon>
+                <Text>Twitter</Text>
+                <Right>
+                  <Icon name="arrow-forward" />
+                </Right></Button>
+              </CardItem>
+
+           </Card>
         </Content>
       </Container>
-  );
-    }
+      );
+    };
 };
 
 const misEstilos = StyleSheet.create({
-  Content: {
+  content: {
     flex: 1,
     justifyContent: 'center',
   },
+
   textCenter:{
     textAlign: 'center',
     width: '100%',
   },
-  boton:{ 
-    
-    marginLeft: '70%',
+
+  boton: {
+    flex: 1,
+    justifyContent: 'center',
   },
-  body:{
+
+  body: {
     paddingVertical: 35,
   },
-  Boton2:{
-    marginRight:'30%',
+
+  header: {
+    justifyContent: 'flex-start',
   },
   Boton3:{
     marginLeft:'30%',
   },
-
+  
 });
 
 export default Registro;
-
