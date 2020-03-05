@@ -1,138 +1,108 @@
-import React,{Component} from 'react';
-import {Container, Content, Card, CardItem, Text, Body, Button, Input, Item, Icon, Right} from 'native-base';
-import {StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import {StyleSheet, Alert, ScrollView} from 'react-native';
+import { Container, Header, Content, Card, CardItem, Text, Body,Button, Item, Input,Icon } from 'native-base';
 
-class Registro extends Component{
-
-  constructor(props){
-    super(props);
-    this.state = {usuario:'',correo:'',contrasena:''};
-  }
-
-  mensaje = ()=>{alert('Datos guardados')};
-  render(){
-      const navegar = this.props.navigation;
-      return(
+class Registro extends Component {
+  render() {
+    return (
       <Container>
-
-          <Content padder contentContainerStyle = {misEstilos.content}>
-            <Card>
-
+      <ScrollView style={misEstilos.scrollView}>
+        <Content padder contentContainerStyle = {misEstilos.content}>
+        <Card>
+         <Header>
+          <Text style = {style}>
+            REGISTRATE
+          </Text>
+        </Header>
             <CardItem header bordered>
-                    <Text style = {misEstilos.textCenter}>Registrar</Text>
             </CardItem>
-              <CardItem bordered>
-                <Body style = {misEstilos.body}>
-
-                  <Item inlineLabel>
-                        <Icon type = 'FontAwesome' name = 'user'></Icon>
-                        <Input type="text"
-                            value={this.state.usuario}
-                            onChangeText={(usuario)=>this.setState({usuario})}
-                        />
-                  </Item>
-
-                  <Item inlineLabel last>
-                    <Icon type = 'Entypo' name = 'email'></Icon>
-                    <Input type="text"
-                      value={this.state.correo}
-                      onChangeText={(correo)=>this.setState({correo})}
-                    />
-                  </Item>
-
-                  <Item inlineLabel last>
-                      <Icon type = 'FontAwesome' name = 'lock'></Icon>
-                      <Input type="password"
-                      value={this.state.contrasena}
-                          onChangeText={(contrasena)=>this.setState({contrasena})}
-                      />
-                  </Item>
-                  
-                </Body>
+              <CardItem footer bordered>
+              <Button primary style ={misEstilos.boton1}>
+                <Icon type = 'AntDesign' name = 'facebook-square' ></Icon>
+              </Button>
+              <Button danger  style ={misEstilos.boton1}>
+                <Icon type = 'Entypo' name = 'google-' ></Icon>
+              </Button>
+              <Button info style={misEstilos.boton1}>
+                <Icon type = 'AntDesign' name = 'twitter'></Icon>
+              </Button>
               </CardItem>
-
-              <CardItem footer bordered>                
-                <Button dark style = {misEstilos.boton} 
-                onPress={this.mensaje} ><Text> Registrar</Text>
-                </Button>
-
-                <Button danger = {misEstilos.boton} 
-                    onPress ={() =>
-                        navegar.navigate('Login',{
-                            contrasena: this.state.contrasena,
-                            usuario: this.state.usuario})}>
-                    <Text>Regresar</Text>
-                    </Button>
-              </CardItem>
-
-              <CardItem warning> 
-                <Button ligh = {misEstilos.boton} 
-                    onPress ={() =>
-                        navegar.navigate('Inicio',{
-                            contrasena: this.state.contrasena,
-                            usuario: this.state.usuario
-                        })}>
-                    <Text>Entrar</Text>
-                </Button>
-              </CardItem>       
-
-            </Card>
-
-            <Card>
-              <CardItem header bordered>
-                <Text style = {misEstilos.textCenter}>registrate por medio de:</Text>
-              </CardItem>
-
-              <CardItem>
-              <Button secundary style={misEstilos.Boton3}><Icon type = 'Entypo' name = 'facebook'></Icon>
-                <Text>Facebook</Text>
-                <Right>
-                  <Icon name="arrow-forward" />
-                </Right></Button>
-              </CardItem>
-
-              <CardItem>
-              <Button info style={misEstilos.Boton3}><Icon type = 'AntDesign' name = 'twitter'></Icon>
-                <Text>Twitter</Text>
-                <Right>
-                  <Icon name="arrow-forward" />
-                </Right></Button>
-              </CardItem>
-
-           </Card>
+            <CardItem >
+              <Body>
+                <Text>
+                  REGISTRAR
+                </Text>
+              <Item inlineLabel>
+              <Icon type = 'FontAwesome' name = 'user-circle-o' ></Icon>
+              <Input placeholder= "Nombre:" />
+            </Item>
+            <Item inlineLabel>
+              <Icon type = 'FontAwesome' name = 'user-circle-o'></Icon>
+              <Input placeholder= "Apellido:" />
+            </Item>
+            <Item inlineLabel>
+              <Icon type = 'FontAwesome' name = 'comment'></Icon>
+              <Input placeholder= "Email:" />
+            </Item>
+            <Item inlineLabel last>
+              <Icon type = 'Foundation' name = 'telephone'></Icon>
+              <Input placeholder="Teléfono" />
+            </Item>
+              </Body>
+            </CardItem>
+            <CardItem footer bordered>
+            <Text style={misEstilos.textCenter}>¿Ya tienes cuenta?</Text>
+            </CardItem>
+            <CardItem footer bordered>
+            <Button primary style ={misEstilos.boton} onPress = {()=> Alert.alert('REGISTRADO')}>
+              <Text>
+                Registrar
+              </Text>
+            </Button>
+            </CardItem>
+         </Card>
         </Content>
+        </ScrollView>
       </Container>
-      );
-    };
-};
+    );
+  }
+}
 
-const misEstilos = StyleSheet.create({
-  content: {
+const misEstilos=StyleSheet.create({
+  content:{
     flex: 1,
-    justifyContent: 'center',
-  },
-
+    justifyContent: 'center'
+},
   textCenter:{
-    textAlign: 'center',
-    width: '100%',
-  },
-
-  boton: {
-    flex: 1,
     justifyContent: 'center',
+    width: "100%",
+    fontSize: 20
   },
-
-  body: {
-    paddingVertical: 35,
+  textColor:{
+    color: '#D2B4DE'
   },
-
-  header: {
-    justifyContent: 'flex-start',
+  boton:{
+    marginLeft: "13%"
   },
-  Boton3:{
-    marginLeft:'30%',
+  boton1:{
+    marginLeft: "10%"
   },
-  
+  scrollView: {
+    backgroundColor: 'white',
+    marginHorizontal: 0,
+  }
 });
 
+const style = {
+    color: 'white',
+    fontSize: 30,
+    
+};
+
 export default Registro;
+
+
+
+/*https://expo.github.io/vector-icons/*/
+/*https://docs.nativebase.io/Components.html#icon-def-headref*/
+/*https://es.survivejs.com/react/advanced-techniques/styling-react/*/

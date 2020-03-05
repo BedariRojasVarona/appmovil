@@ -1,31 +1,38 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import Login from './screen/Login';
-import Registro from './screen/Registro';
-import Inicio from './screen/Inicio';
-
+import Registrarse from './screen/Registrarse';
+import Entrar from './screen/Entrar';
+import Principal from './screen/Principal';
 const Stack = createStackNavigator();
 
 const App: () => React$Node = () => {
-  return(
+  return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login'>
-        <Stack.Screen
-          name='Login'
-          component={Login}/>
-        <Stack.Screen
-          name='Registro'
-          component={Registro}/>
-
-        <Stack.Screen
-          name='Inicio'
-          component={Inicio}/>
-          
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Registrarse" component={Registrarse} />
+        <Stack.Screen name='Entrar' component={Entrar}/>
+        <Stack.Screen name='Principal' component={Principal}/>
       </Stack.Navigator>
-      
     </NavigationContainer>
   );
-};
-
+}
+function loginView(){
+  return(
+    <Login></Login>
+  );
+}
+function entrarView(){
+  return(
+    <Entrar></Entrar>
+  );
+}
+function registrarseView() {
+  return (
+      <Registrarse></Registrarse>
+      
+  );
+}
 export default App;

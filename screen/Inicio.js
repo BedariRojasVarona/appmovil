@@ -1,64 +1,45 @@
-import React,{Component} from 'react';
-import {Container, Content, Text, Button, View, CardItem} from 'native-base';
-import {StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet} from 'react-native';
+import { Container, Header, Content, Card, CardItem, Text, Body,Button,Item,Input } from 'native-base';
 
-import 'react-native-gesture-handler';
-
-class Inicio extends Component {
-
-  render() {
-    const navegar = this.props.navigation;
-      return(
-      <Container>
-        <Content padder contentContainerStyle = {misEstilos.content}>
-      <View style={misEstilos.center}>
-        <Text style={misEstilos.title}>Bienvenido: {this.props.route.params.usuario}</Text>
-        <Text style={misEstilos.title}>Tu contraseña es: {this.props.route.params.contrasena}</Text>
-        <CardItem>
-        <Button sucess = {misEstilos.boton} 
-                    onPress ={() => {
-                        navegar.navigate('Login',{
-                        });
-                    }}>
-
-                  <Text>Regresar a Login</Text>
-            </Button>
+class Inicio extends Component{
+render(){
+  const navegar = this.props.navegation;
+  return (
+    <Container>
+        <Header>
+          <Text style={style}>
+            ENTRADA EXITOSA
+          </Text>
+        </Header>
+        <Content padder contentContainerStyle ={misEstilos.content}>
+          <Card>
+          <CardItem>
+              <Text>Datos del usuario: </Text>
+          </CardItem>
+            <CardItem>
+              <Text>Tu nombre es : {this.props.route.params.nombre}</Text>
             </CardItem>
             <CardItem>
-            <Button success = {misEstilos.boton} 
-                    onPress ={() => {
-                        navegar.navigate('Registro',{
-                        });
-                    }}>
-
-                  <Text>Regresar a Registro</Text>
-            </Button>
+              <Text>Tu contraseña es : {this.props.route.params.contraseña}</Text>
             </CardItem>
-      </View>
-      </Content>
+          </Card>
+        </Content>
       </Container>
-    );
-  }
-};
+  );
+}
+}
 
 const misEstilos = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
   },
-  boton: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 12,
-    marginBottom: 16,
-  },
-  center: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 });
+
+const style = {
+    color: 'white',
+    fontSize: 30,
+};
 
 export default Inicio;
