@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet} from 'react-native';
-import { Container, Header, Content, Card, CardItem, Text, Body,Button,Item,Input } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Text,Button} from 'native-base';
 
 class Inicio extends Component{
 render(){
@@ -25,6 +25,25 @@ render(){
             </CardItem>
           </Card>
         </Content>
+        <CardItem>
+            <Button rounded info style = {misEstilos.boton} 
+                    onPress ={() => {
+                        navegar.navigate('Login',{
+                        });
+                    }}>
+
+                  <Text>Login</Text>
+            </Button>
+
+            <Button rounded info style = {misEstilos.boton} 
+                    onPress ={() => {
+                        navegar.navigate('Registro',{
+                        });
+                    }}>
+
+                  <Text>Registro</Text>
+            </Button>
+            </CardItem>
       </Container>
   );
 }
@@ -32,6 +51,10 @@ render(){
 
 const misEstilos = StyleSheet.create({
   content: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  boton: {
     flex: 1,
     justifyContent: 'center',
   },

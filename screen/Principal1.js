@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {Text, View, ActivityIndicator, StyleSheet} from 'react-native';
+import {Text, View, ActivityIndicator} from 'react-native';
 import {Header,CardItem} from 'native-base';
 import { FlatList } from 'react-native-gesture-handler';
 
-class Principal extends Component{
+class Principal1 extends Component{
     constructor(props){
         super(props);
         this.state = {isLoading: true}
@@ -12,12 +12,12 @@ class Principal extends Component{
     async componentWillMount(){
         try{
             const response =
-                await fetch ('https://reactnative.dev/movies.json')
+                await fetch ('https://swapi.co/api/films')
             const responseJson = await response.json()
 
             this.setState({
                 isLoading: false,
-                dataSource: responseJson.movies,
+                dataSource: responseJson.results,
             }, function(){
 
             });
@@ -37,27 +37,23 @@ class Principal extends Component{
         }
         return(
             <View>
-              <Header>
-                <Text style={style}>
-               STAR WARS
-                </Text>
-              </Header>
-              <CardItem>
+                <Header>
+                <Text style={style}>STAR WARS</Text>
+                </Header>
                 <FlatList 
                     data={this.state.dataSource}
-                    renderItem={({item}) => <Text>Titulo: {item.name}, Año de publicacion: {item.gender},</Text>}
+                    renderItem={({item}) => <Text>{item.title}, {item.characters[6]},</Text>}
                     keyExtractor={({id},index)=>id}
                 />
-              </CardItem>
             </View>
         )
     }
 }
 
+
 const style = {
-  color: 'white',
-  fontSize: 30,
-};
+    color: 'white',
+    fontSize: 30,
+  };
 
-
-export default Principal;
+export default Principal1;

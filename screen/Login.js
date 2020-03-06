@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {StyleSheet, ActivityIndicator,Modal,View, ScrollView,} from 'react-native';
-import { Container, Header, Content, Card, CardItem, Text, Body,Button,Item,Input,Icon } from 'native-base';
+import { Container,Content, Card, CardItem, Text, Body,Button,Item,Input,Icon } from 'native-base';
 
 
 
@@ -24,7 +24,7 @@ class Login extends Component {
     {
       this.setState({isLoading: true})
       setTimeout(() => {
-        navegar.navigate('Entrar',{nombre:this.state.nombre,contraseña:this.state.contraseña});
+        navegar.navigate('Inicio',{nombre:this.state.nombre,contraseña:this.state.contraseña});
         this.setState({isLoading: false})
       },2000);
     }
@@ -74,9 +74,11 @@ class Login extends Component {
                 <CardItem footer bordered>
                   <Text style={misEstilos.textCenter}>REGISTRATE</Text>
                 </CardItem>
+              
+              <CardItem>
               <Button rounded warning
                 onPress={() => {
-                  navegar.navigate('Registrarse', {
+                  navegar.navigate('Registro', {
                     titulo: 'tambien puedes entrar con aluguna red social',
                   });
                 }}>
@@ -84,6 +86,9 @@ class Login extends Component {
                   REGISTRATE
                 </Text>
               </Button>
+              </CardItem>
+
+              <CardItem>
               <Button rounded danger
                 onPress={() => {
                   navegar.navigate('Principal', {
@@ -91,9 +96,23 @@ class Login extends Component {
                   });
                 }}>
                 <Text>
-                  Datos
+                  Movies
                 </Text>
               </Button>
+              </CardItem>
+
+              <CardItem>
+              <Button rounded danger
+                onPress={() => {
+                  navegar.navigate('Principal1', {
+                    titulo: 'Registro',
+                  });
+                }}>
+                <Text>
+                  STAR WARS
+                </Text>
+              </Button>
+              </CardItem>
             </Card>
           </Content>
       </ScrollView>
