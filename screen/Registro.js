@@ -1,10 +1,27 @@
 import React, { Component } from 'react';
 import {StyleSheet, Alert, ScrollView} from 'react-native';
 import { Container, Header, Content, Card, CardItem, Text, Body,Button, Item, Input,Icon } from 'native-base';
+import api from '../data/api';
 
 class Registro extends Component {
+    constructor(props){
+      super(props);
+      this.state={
+        email:'',
+        user:'', 
+        pass:''				
+      }
+    }
+
+    resgister = () => api.registerData(this.state.email,this.state.user,this.state.pass)
+
+    mensaje = ()=>{alert('Datos guardados')};
+
   render() {
+    const navegar = this.props.navigation;
+
     return (
+
       <Container>
       <ScrollView style={misEstilos.scrollView}>
         <Content padder contentContainerStyle = {misEstilos.content}>
@@ -34,19 +51,19 @@ class Registro extends Component {
                 </Text>
               <Item inlineLabel>
               <Icon type = 'FontAwesome' name = 'user-circle-o' ></Icon>
-              <Input placeholder= "Nombre:" />
-            </Item>
-            <Item inlineLabel>
-              <Icon type = 'FontAwesome' name = 'user-circle-o'></Icon>
-              <Input placeholder= "Apellido:" />
+              <Input placeholder= "Nombre:" 
+              onChangeText={(user)=> this.setState({user})}/>
             </Item>
             <Item inlineLabel>
               <Icon type = 'FontAwesome' name = 'comment'></Icon>
-              <Input placeholder= "Email:" />
+              <Input placeholder= "Email:"
+              onChangeText={(email)=> this.setState({email})}/>
             </Item>
-            <Item inlineLabel last>
-              <Icon type = 'Foundation' name = 'telephone'></Icon>
-              <Input placeholder="Teléfono" />
+            <Item inlineLabel>
+              <Icon type = 'FontAwesome' name = 'user-circle-o'></Icon>
+              <Input placeholder= "Password:"
+              onChangeText={(pass)=> this.setState({pass})}
+              secureTextEntry={true}/>
             </Item>
               </Body>
             </CardItem>
@@ -54,11 +71,16 @@ class Registro extends Component {
             <Text style={misEstilos.textCenter}>¿Ya tienes cuenta?</Text>
             </CardItem>
             <CardItem footer bordered>
-            <Button primary style ={misEstilos.boton} onPress = {()=> Alert.alert('REGISTRADO')}>
-              <Text>
-                Registrar
+            <Button rounded info onPress={() => navegar.navigation('Login')}>
+              <Text> 
+                  LOGIN
               </Text>
-            </Button>
+             </Button>
+            </CardItem>
+            <CardItem>
+            <Button success onPress={this.resgister}>
+              <Text>GUARDAR</Text>
+             </Button>
             </CardItem>
          </Card>
         </Content>
@@ -98,7 +120,6 @@ const style = {
     fontSize: 30,
     
 };
-
 export default Registro;
 
 

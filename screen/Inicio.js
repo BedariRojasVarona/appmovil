@@ -18,32 +18,13 @@ render(){
               <Text>Datos del usuario: </Text>
           </CardItem>
             <CardItem>
-              <Text>Tu nombre es : {this.props.route.params.nombre}</Text>
+              <Text>Tu Email es : {this.props.route.params.email}</Text>
             </CardItem>
             <CardItem>
-              <Text>Tu contraseña es : {this.props.route.params.contraseña}</Text>
+              <Text>Tu contraseña es : {this.props.route.params.password}</Text>
             </CardItem>
           </Card>
         </Content>
-        <CardItem>
-            <Button rounded info style = {misEstilos.boton} 
-                    onPress ={() => {
-                        navegar.navigate('Login',{
-                        });
-                    }}>
-
-                  <Text>Login</Text>
-            </Button>
-
-            <Button rounded info style = {misEstilos.boton} 
-                    onPress ={() => {
-                        navegar.navigate('Registro',{
-                        });
-                    }}>
-
-                  <Text>Registro</Text>
-            </Button>
-            </CardItem>
       </Container>
   );
 }

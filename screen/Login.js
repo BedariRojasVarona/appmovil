@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
-import {StyleSheet, ActivityIndicator,Modal,View, ScrollView,} from 'react-native';
+import {StyleSheet, ActivityIndicator,Modal,View, ScrollView,AppRegistry,TouchableOpacity,TextInput,Keyboard, Alert} from 'react-native';
 import { Container,Content, Card, CardItem, Text, Body,Button,Item,Input,Icon } from 'native-base';
-
+import api from '../data/api';
 
 
 class Login extends Component {
@@ -9,31 +9,50 @@ class Login extends Component {
   constructor(props){
     super(props);
     this.state={
-      nombre:'',
-      contraseña:'',
-      isloading: true,
-    } 
+      username:'',
+      pass:''} 
   } //END CONSTRUCTOR*/
-  ShowHideActivityIndicator = () =>{
-    const navegar=this.props.navigation;
-    if(this.state.isLoading == true)
-    {
-      this.setState({isLoading: false})
+
+
+  login = async () =>{
+    let validarLog = await api.validarLog(this.state.username, this.state.pass)
+
+    if(validarLog.status == 1){
+      this.props.navigation.navigate('Principal');
     }
-    else
-    {
-      this.setState({isLoading: true})
-      setTimeout(() => {
-        navegar.navigate('Inicio',{nombre:this.state.nombre,contraseña:this.state.contraseña});
-        this.setState({isLoading: false})
-      },2000);
+    else{
+      Alert.alert('Usuario o clave invalidos');
     }
   }
 
+  state={
+    showIndicator:false,
+}
+onButtonPress=()=>{
+    this.setState({
+        showIndicator:true
+    }),
+this.props.navigation.navigate('Inicio',{contrasena:this.state.contrasena, usuario:this.state.usuario});
+}
+
+state = {switchValue:false}
+toggleSwitch = (value) => {
+  this.setState({switchValue: value})
+}
+		
+      
+  
 
   render(){
     const navegar = this.props.navigation;
+    if(this.state.showIndicator){
     return (
+      <View style={misEstilos.content}>
+                    <ActivityIndicator size="large" color="FFFFFF"></ActivityIndicator>
+                </View>
+            );
+        }else{
+        return(
       <Container>
         <ScrollView style={misEstilos.scrollView}>
           <Content padder contentContainerStyle={misEstilos.content}>
@@ -58,18 +77,19 @@ class Login extends Component {
                   <Body>
                     <Item inlineLabel>
                       <Icon type='FontAwesome' name='user' />
-                        <Input placeholder="Nombre de usuario" value={this.state.nombre} onChangeText={(nombre)=> this.setState({nombre}) } />
+                        <Input placeholder="Nombre de usuario" 
+                        onChangeText={username => this.setState({username})}/>
                       </Item>
                       <Item inlineLabel last>
                         <Icon type='FontAwesome' name='lock' />
-                        <Input placeholder="Contraseña" value={this.state.contraseña} onChangeText={(contraseña)=> this.setState({contraseña}) } /> 
+                        <Input placeholder="Contraseña" 
+                        onChangeText={pass => this.setState({pass})}
+                        secureTextEntry={true}/> 
                     </Item>
                   </Body>
                 </CardItem>
-                  <Button rounded info onPress={this.ShowHideActivityIndicator}>
-              <Text> 
-                  Entrar 
-              </Text>
+                  <Button rounded info onPress={() => {this.login() }}>
+              <Text>Entrar</Text>
              </Button>
                 <CardItem footer bordered>
                   <Text style={misEstilos.textCenter}>REGISTRATE</Text>
@@ -79,6 +99,8 @@ class Login extends Component {
               <Button rounded warning
                 onPress={() => {
                   navegar.navigate('Registro', {
+                    pass: this.state.pass,
+                    username: this.state.username,
                     titulo: 'tambien puedes entrar con aluguna red social',
                   });
                 }}>
@@ -120,6 +142,8 @@ class Login extends Component {
     ); 
   } 
 } 
+}
+
 
 const misEstilos = StyleSheet.create({
   content: {
@@ -157,6 +181,5 @@ const style = {
     color: 'white',
     fontSize: 30,
 };
-
 
 export default Login;
