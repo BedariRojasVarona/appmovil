@@ -18,7 +18,7 @@ render(){
               <Text>Datos del usuario: </Text>
           </CardItem>
             <CardItem>
-              <Text>Tu Email es : {this.props.route.params.email}</Text>
+              <Text>Tu Nombre es : {this.props.route.params.username}</Text>
             </CardItem>
             <CardItem>
               <Text>Tu contraseña es : {this.props.route.params.password}</Text>

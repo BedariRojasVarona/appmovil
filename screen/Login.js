@@ -7,51 +7,27 @@ import api from '../data/api';
 class Login extends Component {
 
   constructor(props){
-    super(props);
-    this.state={
-      username:'',
-      pass:''} 
-  } //END CONSTRUCTOR*/
+    super(props); 
+    this.state = {
+        username:'', 
+        pass:''
+      }
+}
 
-
-  login = async () =>{
+login = async() => {
     let validarLog = await api.validarLog(this.state.username, this.state.pass)
 
     if(validarLog.status == 1){
-      this.props.navigation.navigate('Principal');
+        this.props.navigation.navigate('Principal');
     }
     else{
-      Alert.alert('Usuario o clave invalidos');
+        Alert.alert('Usuario o clave invalidos');
     }
-  }
-
-  state={
-    showIndicator:false,
-}
-onButtonPress=()=>{
-    this.setState({
-        showIndicator:true
-    }),
-this.props.navigation.navigate('Inicio',{contrasena:this.state.contrasena, usuario:this.state.usuario});
 }
 
-state = {switchValue:false}
-toggleSwitch = (value) => {
-  this.setState({switchValue: value})
-}
-		
-      
-  
 
   render(){
     const navegar = this.props.navigation;
-    if(this.state.showIndicator){
-    return (
-      <View style={misEstilos.content}>
-                    <ActivityIndicator size="large" color="FFFFFF"></ActivityIndicator>
-                </View>
-            );
-        }else{
         return(
       <Container>
         <ScrollView style={misEstilos.scrollView}>
@@ -78,38 +54,33 @@ toggleSwitch = (value) => {
                     <Item inlineLabel>
                       <Icon type='FontAwesome' name='user' />
                         <Input placeholder="Nombre de usuario" 
-                        onChangeText={username => this.setState({username})}/>
+                        onChangeText={(username) => this.setState({username})}/>
                       </Item>
                       <Item inlineLabel last>
                         <Icon type='FontAwesome' name='lock' />
                         <Input placeholder="Contraseña" 
-                        onChangeText={pass => this.setState({pass})}
+                        onChangeText={(pass) => this.setState({pass})}
                         secureTextEntry={true}/> 
                     </Item>
                   </Body>
                 </CardItem>
-                  <Button rounded info onPress={() => {this.login() }}>
-              <Text>Entrar</Text>
-             </Button>
                 <CardItem footer bordered>
-                  <Text style={misEstilos.textCenter}>REGISTRATE</Text>
-                </CardItem>
-              
-              <CardItem>
-              <Button rounded warning
-                onPress={() => {
-                  navegar.navigate('Registro', {
-                    pass: this.state.pass,
-                    username: this.state.username,
-                    titulo: 'tambien puedes entrar con aluguna red social',
-                  });
-                }}>
-                <Text>
-                  REGISTRATE
-                </Text>
-              </Button>
-              </CardItem>
+                    <Button primary 
+                    onPress ={() =>{
+                        navegar.navigate('Registro',{
+                            titulo: 'Registro de usuario',
+                            nombre: 'Bedari',
+                            });
+                    }}>
+                    <Text>Registrar</Text>
+                    </Button>
 
+
+                    <Button success style = { misEstilos.content}
+                        onPress={() => {this.login() }} >
+                        <Text> Entrar </Text>
+                    </Button>
+                </CardItem>
               <CardItem>
               <Button rounded danger
                 onPress={() => {
@@ -142,7 +113,7 @@ toggleSwitch = (value) => {
     ); 
   } 
 } 
-}
+
 
 
 const misEstilos = StyleSheet.create({
